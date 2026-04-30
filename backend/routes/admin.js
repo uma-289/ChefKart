@@ -1,0 +1,17 @@
+const express = require('express');
+const r = express.Router();
+const c = require('../controllers/adminController');
+const { protect, authorize } = require('../middleware/auth');
+r.use(protect, authorize('admin'));
+r.get('/stats',                        c.getDashboardStats);
+r.get('/applications',                 c.getChefApplications);
+r.put('/applications/:id/approve',     c.approveChefApplication);
+r.put('/applications/:id/reject',      c.rejectChefApplication);
+r.get('/users',                        c.getAllUsers);
+r.put('/users/:id/toggle',             c.toggleUserStatus);
+r.get('/chefs',                        c.getAllChefs);
+r.delete('/chefs/:id',                 c.removeChef);
+r.put('/chefs/:id/toggle',             c.toggleChefStatus);
+r.get('/bookings',                     c.getAllBookings);
+r.get('/payments',                     c.getAllPayments);
+module.exports = r;
